@@ -20,4 +20,4 @@ RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.ph
 RUN chmod +x wp-cli.phar
 RUN mkdir -p /run/php
 
-RUN mv wp-cli.phar /usr/local/bin/wp
+RUN mv wp-cli.phar /usr/bin/wp

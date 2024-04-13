@@ -3,17 +3,19 @@ version: "3.8"
 services:
   mariadb:
     container_name: mariadb
-    build: ./requirements/mariadb
-    restart: unless-stopped
+    build: "./requirements/mariadb"
     env_file: .env
+    restart: unless-stopped
     volumes:
       - mariadb:/var/lib/mysql
     networks:
       - inception
+    expose:
+      - "3306"
 
   wordpress:
     container_name: wordpress
-    build: ./requirements/wordpress
+    build: "./requirements/wordpress"
     env_file: .env
     restart: on-failure
     expose:
@@ -27,9 +29,10 @@ services:
 
   nginx:
     container_name: nginx
-    build: ./requirements/nginx
+    build: "./requirements/nginx"
     hostname: localhost
     restart: on-failure
+    env_file: .env
     volumes:
       - wp:/var/www/wordpress
     networks:
@@ -39,29 +42,29 @@ services:
     ports:
       - "443:443"
 
-  portainer:
-    image: portainer/portainer-ce:latest
-    container_name: portainer
-    ports:
-      - "8000:8000"
-      - "9443:9443"
-    volumes:
-      - "/etc/localtime:/etc/localtime:ro"
-      - "/var/run/docker.sock:/var/run/docker.sock:ro"
-    security_opt:
-      - no-new-privileges:true
-    restart: always
+  # portainer:
+  #   image: portainer/portainer-ce:latest
+  #   container_name: portainer
+  #   ports:
+  #     - "8000:8000"
+  #     - "9443:9443"
+  #   volumes:
+  #     - "/etc/localtime:/etc/localtime:ro"
+  #     - "/var/run/docker.sock:/var/run/docker.sock:ro"
+  #   security_opt:
+  #     - no-new-privileges:true
+  #   restart: always
   
-  adminer:
-    image: adminer:4
-    container_name: adminer
-    restart: unless-stopped
-    networks:
-      - inception
-    depends_on:
-      - mariadb
-    ports:
-      - "9000:8080"
+  # adminer:
+  #   image: adminer:4
+  #   container_name: adminer
+  #   restart: unless-stopped
+  #   networks:
+  #     - inception
+  #   depends_on:
+  #     - mariadb
+  #   ports:
+  #     - "9000:8080"
 
 volumes:
   mariadb:
