@@ -3,13 +3,20 @@ FROM debian:bullseye
 EXPOSE 3306
 
 RUN apt-get update -y && apt-get upgrade -y
-RUN apt-get install -y apt-utils vim
-RUN apt-get install -y mariadb-server
+RUN apt-get install -y apt-utils mariadb-server
 RUN dpkg --configure -a
-COPY ./conf/50-server.cnf	/etc/mysql/mariadb.conf.d/50-server.cnf
+RUN rm /etc/mysql/mariadb.conf.d/50-server.cnf
+COPY ./conf/50-server.cnf	/etc/mysql/mariadb.conf.d/
 
-COPY tools/setup.sh /etc/mariadb/setup.sh
-RUN chmod +x /etc/mariadb/setup.sh
-RUN /etc/mariadb/setup.sh
+RUN mkdir -p /run/mysqld
+RUN chmod 755 /run/mysqld
 
-CMD [ "mysqld_safe" ]
+RUN chown -R mysql:root /var/lib/mysql
+RUN chown -R mysql:root /var/run/mysqld
+
+COPY tools/setup.sh /
+RUN chmod 755 /setup.sh
+RUN bash /setup.sh
+RUN rm /setup.sh
+
+CMD mysqld_safe
