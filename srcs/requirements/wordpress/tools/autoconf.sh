@@ -1,12 +1,15 @@
 #!/bin/bash
 cd /var/www/wordpress
-sleep 10
+# sleep 10
+# cat /var/www/wordpress/wp-config.php
+# exit 12
 
-/usr/local/bin/wp config create	--allow-root \
-					--dbname=$SQL_DATABASE \
-					--dbuser=$SQL_USER \
-					--dbpass=$SQL_PASSWORD \
-					--dbhost=mariadb:3306 --path='/var/www/wordpress'
+
+# /usr/local/bin/wp config create	--allow-root \
+# 					--dbname=$SQL_DATABASE \
+# 					--dbuser=$SQL_USER \
+# 					--dbpass=$SQL_PASSWORD \
+# 					--dbhost=mariadb:3306 --path='/var/www/wordpress'
 
 /usr/local/bin/wp core install --title=$WP_TITLE \
 				--admin_user=$WP_ADMIN_USER \
@@ -16,7 +19,7 @@ sleep 10
 				--allow-root
 
 /usr/local/bin/wp core config	\
-				--dbhost=srcs-mariadb:3306 --path='/var/www/wordpress' \
+				--dbhost=mariadb:3306 --path='/var/www/wordpress' \
 				--dbname=$SQL_DATABASE \
 				--dbuser=$SQL_USER \
 				--dbpass=$SQL_PASSWORD \

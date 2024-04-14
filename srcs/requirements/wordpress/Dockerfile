@@ -11,20 +11,27 @@ RUN cd /var/www/ && tar -xzf wordpress-6.5.2-fr_FR.tar.gz && rm wordpress-6.5.2-
 RUN chown -R root:root /var/www/wordpress
 
 
-COPY conf/php.ini /etc/php/7.4/cli/php.ini
+# COPY conf/php.ini /etc/php/7.4/cli/php.ini
 COPY conf/www.conf /etc/php/7.4/fpm/pool.d/
 
 RUN wget https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar
 
-RUN chmod +x wp-cli.phar
 RUN mkdir -p /run/php
 
 
+
 RUN mv wp-cli.phar /usr/local/bin/wp
+RUN chmod +x /usr/local/bin/wp
+
+# COPY conf/wp-config.php /var/www/wordpress
+# RUN chmod 755 /var/www/wordpress/wp-config.php
 
 COPY tools/autoconf.sh /
 RUN /bin/bash /autoconf.sh
 RUN rm /autoconf.sh
+
+
+# RUN rm /var/www/wordpress/wp-config.php
 
 
 CMD /usr/sbin/php-fpm7.4 -F
