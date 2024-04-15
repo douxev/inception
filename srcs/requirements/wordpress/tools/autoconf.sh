@@ -29,5 +29,6 @@ sleep 10
 				--user_pass=$WP_USER_PASSWORD\
 				--allow-root
 
-# wp redis enable --allow-root
+wp redis enable --allow-root
+
 cd -
