@@ -4,6 +4,10 @@ RUN apt-get update -y && apt-get upgrade -y && apt-get install -y nginx
 
 RUN mkdir -p /etc/nginx/ssl
 RUN apt-get install -y openssl
+# RUN openssl req -x509 -days 365 -nodes -newkey rsa:4096 \
+# 	-keyout /etc/nginx/ssl/inception.key \
+# 	-out /etc/nginx/ssl/inception.crt -sha256 -subj "/CN=jdoukhan.42.fr"
+
 RUN openssl req -x509 -nodes -out /etc/nginx/ssl/inception.crt -keyout /etc/nginx/ssl/inception.key -subj "/C=FR/ST=IDF/L=Paris/O=42/OU=42/CN=jdoukhan.42.fr/UID=jdoukhan"
 RUN mkdir -p /var/run/nginx
 

@@ -2,6 +2,14 @@ FROM debian:bullseye
 
 EXPOSE 3306
 
+
+
+# ARG SQL_DATABASE=${SQL_DATABASE}
+# ARG SQL_USER=${SQL_USER}
+# ARG SQL_PASSWORD=${SQL_PASSWORD}
+# ARG SQL_ROOT_PASSWORD=${SQL_ROOT_PASSWORD}
+
+
 RUN apt-get update -y && apt-get upgrade -y
 RUN apt-get install -y apt-utils mariadb-server
 RUN dpkg --configure -a
@@ -16,7 +24,8 @@ RUN chown -R mysql:root /var/run/mysqld
 
 COPY tools/setup.sh /
 RUN chmod 755 /setup.sh
-RUN bash /setup.sh
-RUN rm /setup.sh
+COPY conf/vars.env /
+RUN /bin/bash /setup.sh
+RUN rm /setup.sh /vars.env
 
-CMD mysqld_safe
+CMD ["mysqld_safe"]
