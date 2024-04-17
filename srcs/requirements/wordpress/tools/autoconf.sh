@@ -29,6 +29,16 @@ sleep 10
 				--user_pass=$WP_USER_PASSWORD\
 				--allow-root
 
-wp redis enable --allow-root
+/usr/sbin/php-fpm7.4
+cat wp-config.php
+sleep 20
+/usr/local/bin/wp config set WP_REDIS_HOST redis --allow-root
+/usr/local/bin/wp config set WP_REDIS_PORT 6379 --raw --allow-root
+/usr/local/bin/wp config set WP_CACHE_KEY_SALT jdoukhan.42.fr --allow-root
+/usr/local/bin/wp config set WP_REDIS_CLIENT phpredis --allow-root
+sleep 5
+/usr/local/bin/wp plugin install redis-cache --activate --allow-root
+/usr/local/bin/wp plugin update --all --allow-root
+/usr/local/bin/wp redis enable --allow-root
 
 cd -

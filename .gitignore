@@ -1,2 +1,3 @@
 srcs/.env
 srcs/requirements/mariadb/conf/vars.env
+srcs/requirements/bonus/conf/ftp.env

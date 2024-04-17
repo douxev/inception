@@ -3,7 +3,11 @@ FROM debian:bullseye
 EXPOSE 9000
 
 RUN apt-get -y update && apt-get -y upgrade
-RUN apt-get -y install wget php7.4 php-fpm php-mysql mariadb-client vim
+RUN apt-get -y install \
+	wget vim \
+	php7.4 php-fpm php-mysql \
+	mariadb-client \
+	redis php-redis
 
 RUN wget https://fr.wordpress.org/wordpress-6.5.2-fr_FR.tar.gz -P /var/www
 
