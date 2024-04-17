@@ -26,9 +26,9 @@ RUN mkdir -p /run/php
 RUN mv wp-cli.phar /usr/local/bin/wp
 RUN chmod +x /usr/local/bin/wp
 
+COPY conf/config.php /
 COPY tools/autoconf.sh /
 RUN /bin/bash /autoconf.sh
 RUN rm /autoconf.sh
-
 
 CMD /usr/sbin/php-fpm7.4 -F

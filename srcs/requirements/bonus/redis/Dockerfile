@@ -1,6 +1,6 @@
 FROM debian:bullseye
 
-# EXPOSE 6379
+EXPOSE 6379
 
 RUN apt-get -y update && apt install redis-server -y && echo "maxmemory 256mb" >> /etc/redis/redis.conf
 
