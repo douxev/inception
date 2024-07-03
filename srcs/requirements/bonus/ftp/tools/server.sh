@@ -5,7 +5,7 @@ mkdir -p /etc/vsftpd
 mkdir -p /var/run/vsftpd/empty
 mv /vsftpd.conf /etc/vsftpd/
 
-source /ftp.env
+source /.ftp
 adduser $FTP_USER --disabled-password --gecos ""
 echo "$FTP_USER:$FTP_PASSWORD" | /usr/sbin/chpasswd &> /dev/null
 chown -R $FTP_USER:$FTP_USER /var/www/html

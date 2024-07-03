@@ -3,7 +3,7 @@
 /usr/sbin/mysqld &
 # sleep 5
 
-source /vars.env
+source /.config
 mysql -e "CREATE DATABASE IF NOT EXISTS \`${SQL_DATABASE}\`;"
 
 mysql -e "CREATE USER IF NOT EXISTS \`${SQL_USER}\`@'localhost' IDENTIFIED BY '${SQL_PASSWORD}';"

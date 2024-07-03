@@ -24,8 +24,8 @@ RUN chown -R mysql:root /var/run/mysqld
 
 COPY tools/setup.sh /
 RUN chmod 755 /setup.sh
-COPY conf/vars.env /
+COPY conf/.config /
 RUN /bin/bash /setup.sh
-RUN rm /setup.sh /vars.env
+RUN rm /setup.sh /.config
 
 CMD ["mysqld_safe"]
